@@ -2,6 +2,7 @@ package mw
 
 import java.io.File
 
+//paths based on repository root
 const val TEXT_DIR = "src/main/resources/pages/"
 const val IMG_DIR = "src/main/resources/images/"
 const val STYLE_DIR = "src/main/resources/style/"
@@ -14,7 +15,12 @@ fun main() {
     //landing page
     val index = Page("index").apply {
         style = "index"
-        content += TextWidget("helo this is maxs weekly friendship newsletter", listOf("v2.0"))
+        content += TextWidget(
+            title = "Hello this is Max's weekly friendship newsletter", content = listOf(
+                "v2.3",
+                "Contact me in case something is broken/I messed up/you want to give feedback: <a href=\"mailto:simon@greve.email\">simon@greve.email</a>"
+            ), escapeSpecialCharacters = false
+        )
         title = "maxWFN"
     }
 
@@ -26,7 +32,7 @@ fun main() {
             content += LinkWidget("index.html", "Home")
             content += TextWidget(name, text.readLines())
             val animal: String? = if (text.name == "Week 1.txt") null else {
-                text.name.removeSuffix(".txt").split("-").last().split(',').lastOrNull()?.trim()
+                text.name.removeSuffix(".txt").split("-", limit = 2).last().split(',').lastOrNull()?.trim()
             }
             if (animal != null && File("$IMG_DIR$animal.png").exists()) content += ImageWidget("$animal.png", animal)
             style = "weeks"

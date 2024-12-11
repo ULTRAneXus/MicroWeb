@@ -67,12 +67,13 @@ data class Page(val name: String) {
     var title: String? = null
 }
 
-fun buildPage(page: Page): List<String> {
+fun buildPage(page: Page, includeFooter: Boolean = true): List<String> {
     val result = mutableListOf<String>()
     result += "<!DOCTYPE html>\n" + "<html lang=\"en\">\n" + "<head>\n" + "<meta content=\"text/html\" charset=\"UTF-8\">\n" + "${page.style?.let { "<link href=\"${page.style}.css\" rel=\"stylesheet\">" }}\n" + "<title>${page.title ?: page.name}</title>\n" + "</head>\n" + "<body>\n" + "<main>"
 
     page.content.forEach { result += it.getHTML() }
 
+    if (includeFooter) result += "<p>Built with <a href=\"https://github.com/ULTRAneXus/MicroWeb\">MicroWeb</a></p>"
     result += "</main>\n" + "</body>\n" + "</html>\n"
     return result
 }

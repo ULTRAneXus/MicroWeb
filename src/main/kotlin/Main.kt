@@ -44,7 +44,7 @@ fun main() {
     index.content += IndexWidget(pageIndex)
 
     //add content of all weeks to landing page, without home button
-    weeks.forEach { index.content += it.content.filter { widget -> widget !is LinkWidget } }
+    weeks.reversed().forEach { index.content += it.content.filter { widget -> widget !is LinkWidget } }
 
     //generate html to output dir
     renderTo(weeks + index, OUTPUT_DIR)

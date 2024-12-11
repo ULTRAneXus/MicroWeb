@@ -9,63 +9,77 @@ const val OUTPUT_DIR = "out/"
 
 fun main() {
 
-    if (!File(OUTPUT_DIR).exists() && !File(OUTPUT_DIR).mkdir()) throw Exception("Could not create directory")
+    if (!File(OUTPUT_DIR).exists() && !File(OUTPUT_DIR).mkdir()) throw Exception("Could not create output directory")
 
+    //landing page
+    val index = Page("index").apply {
+        style = "index"
+        content += TextWidget("helo this is maxs weekly friendship newsletter", listOf("v2.0"))
+        title = "maxWFN"
+    }
+
+    //pages of individual weeks
     val textFiles = File(TEXT_DIR).walk().filter { it.name.endsWith(".txt") }.toList()
-
-    val index = Page("index")
-    index.style = "index"
-
-    val all = Page("all")
-    all.style = "all"
-
     val weeks: MutableList<Page> = mutableListOf()
-
     for (text in textFiles) {
-        val newPage = Page(text.name.removeSuffix(".txt"))
-        newPage.content += LinkWidget("index.html", "Home")
-        newPage.content += TextWidget(newPage.title, text.readLines())
-        val animal: String? = if (text.name == "Week 1.txt") null else {
-            text.name.removeSuffix(".txt").split("-").last().split(',').lastOrNull()?.trim()
+        val newPage = Page(text.name.removeSuffix(".txt")).apply {
+            content += LinkWidget("index.html", "Home")
+            content += TextWidget(name, text.readLines())
+            val animal: String? = if (text.name == "Week 1.txt") null else {
+                text.name.removeSuffix(".txt").split("-").last().split(',').lastOrNull()?.trim()
+            }
+            if (animal != null && File("$IMG_DIR$animal.png").exists()) content += ImageWidget("$animal.png", animal)
+            style = "weeks"
+            title = text.name.split('-').firstOrNull()?.trim()
         }
-        if (animal != null) newPage.content += ImageWidget("$animal.png", animal)
-        newPage.style = "weeks"
         weeks.add(newPage)
     }
 
+    //sort pages by number in title, dangerous but works :)
+    weeks.sortBy { page -> page.name.filter { it.isDigit() }.toIntOrNull() }
+
+    //index of all weeks
     val pageIndex: MutableList<Pair<String, String>> = mutableListOf()
-    weeks.forEach { pageIndex += Pair(it.title, "${it.title}.html") }
+    weeks.forEach { pageIndex += Pair(it.name, "${it.name}.html") }
     index.content += IndexWidget(pageIndex)
 
-    render(weeks + index + all)
+    //add content of all weeks to landing page, without home button
+    weeks.forEach { index.content += it.content.filter { widget -> widget !is LinkWidget } }
 
+    //generate html to output dir
+    renderTo(weeks + index, OUTPUT_DIR)
+
+    //copy images to output dir
     File(IMG_DIR).walk().filter { it.name.endsWith(".png") }
         .forEach { it.copyTo(File(OUTPUT_DIR + it.name), overwrite = true) }
+
+    //copy css to output dir
     File(STYLE_DIR).walk().filter { it.name.endsWith(".css") }.forEach {
-            it.copyTo(
-                File(OUTPUT_DIR + it.name), overwrite = true
-            )
-        }
+        it.copyTo(
+            File(OUTPUT_DIR + it.name), overwrite = true
+        )
+    }
 }
 
-data class Page(val title: String) {
+data class Page(val name: String) {
     val content: MutableList<Widget> = mutableListOf()
     var style: String? = null
+    var title: String? = null
 }
 
 fun buildPage(page: Page): List<String> {
     val result = mutableListOf<String>()
-    result += "<!DOCTYPE html>" + "<html lang=\"en\">" + "<head>" + "<meta content=\"text/html\" charset=\"UTF-8\">" + "${page.style?.let { "<link href=\"${page.style}.css\" rel=\"stylesheet\">" }}" + "<title>${page.title}</title>" + "</head>" + "<body>" + "<main>"
+    result += "<!DOCTYPE html>\n" + "<html lang=\"en\">\n" + "<head>\n" + "<meta content=\"text/html\" charset=\"UTF-8\">\n" + "${page.style?.let { "<link href=\"${page.style}.css\" rel=\"stylesheet\">" }}\n" + "<title>${page.title ?: page.name}</title>\n" + "</head>\n" + "<body>\n" + "<main>"
 
     page.content.forEach { result += it.getHTML() }
 
-    result += "</main>" + "</body>" + "</html>"
+    result += "</main>\n" + "</body>\n" + "</html>\n"
     return result
 }
 
-fun render(pages: List<Page>) {
+fun renderTo(pages: List<Page>, path: String) {
     for (page in pages) {
-        val out = File(OUTPUT_DIR + page.title + ".html")
+        val out = File(path + page.name + ".html")
         out.writeText(buildPage(page).joinToString("\n"))
     }
 }

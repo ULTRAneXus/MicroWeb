@@ -75,7 +75,7 @@ data class Page(val name: String) {
 
 fun buildPage(page: Page, includeFooter: Boolean = true): List<String> {
     val result = mutableListOf<String>()
-    result += "<!DOCTYPE html>\n" + "<html lang=\"en\">\n" + "<head>\n" + "<meta content=\"text/html\" charset=\"UTF-8\">\n" + "${page.style?.let { "<link href=\"${page.style}.css\" rel=\"stylesheet\">" }}\n" + "<title>${page.title ?: page.name}</title>\n" + "</head>\n" + "<body>\n" + "<main>"
+    result += "<!DOCTYPE html>\n" + "<html lang=\"en\">\n" + "<head>\n" + "<meta content=\"text/html\" charset=\"UTF-8\">\n" + "${page.style?.let { "<link href=\"${page.style}.css\" rel=\"stylesheet\">" }}\n" + "<title>${page.title ?: page.name}</title>\n" + "<link rel=\"icon\" href=\"icon.png\">\n" + "</head>\n" + "<body>\n" + "<main>"
 
     page.content.forEach { result += it.getHTML() }
 

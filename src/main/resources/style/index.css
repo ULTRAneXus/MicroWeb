@@ -10,3 +10,9 @@ a{
 img{
     width: 30%;
 }
+
+@media (max-aspect-ratio: 5/4) {
+    img{
+        width: 75%;
+    }
+}

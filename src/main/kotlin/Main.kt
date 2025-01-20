@@ -30,11 +30,15 @@ fun main() {
     for (text in textFiles) {
         val newPage = Page(text.name.removeSuffix(".txt")).apply {
             content += LinkWidget("index.html", "Home")
+            content += LineBreakWidget()
             content += TextWidget(name, text.readLines())
             val animal: String? = if (text.name == "Week 1.txt") null else {
                 text.name.removeSuffix(".txt").split("-", limit = 2).last().split(',').lastOrNull()?.trim()
             }
-            if (animal != null && File("$IMG_DIR$animal.png").exists()) content += ImageWidget("$animal.png", animal)
+            if (animal != null && File("$IMG_DIR$animal.webp").exists()) {
+                content += LineBreakWidget()
+                content += ImageWidget("$animal.webp", animal)
+            }
             style = "weeks"
             title = text.name.split('-').firstOrNull()?.trim()
         }
@@ -50,13 +54,15 @@ fun main() {
     index.content += IndexWidget(pageIndex)
 
     //add content of all weeks to landing page, without home button
-    weeks.reversed().forEach { index.content += it.content.filter { widget -> widget !is LinkWidget } }
+    weeks.reversed().forEach { week ->
+        index.content += week.content.dropWhile { it is LinkWidget || it is LineBreakWidget }
+    }
 
     //generate html to output dir
     renderTo(weeks + index, OUTPUT_DIR)
 
     //copy images to output dir
-    File(IMG_DIR).walk().filter { it.name.endsWith(".png") }
+    File(IMG_DIR).walk().filter { it.name.endsWith(".webp") || it.name == "icon.png" }
         .forEach { it.copyTo(File(OUTPUT_DIR + it.name), overwrite = true) }
 
     //copy css to output dir

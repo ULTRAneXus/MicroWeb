@@ -1,4 +1,4 @@
-package mw
+package mw.oldWidgets
 
 class LinkWidget(private val path: String, private val alt: String) : Widget {
     override fun getHTML(): List<String> {

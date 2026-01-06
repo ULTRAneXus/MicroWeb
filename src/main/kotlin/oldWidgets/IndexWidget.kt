@@ -1,4 +1,4 @@
-package mw
+package mw.oldWidgets
 
 /**
  * index should be list of pairs name:link to page

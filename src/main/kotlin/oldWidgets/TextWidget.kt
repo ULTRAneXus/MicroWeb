@@ -1,4 +1,4 @@
-package mw
+package mw.oldWidgets
 
 class TextWidget(
     private val title: String?, private val content: List<String>, private val escapeSpecialCharacters: Boolean = true

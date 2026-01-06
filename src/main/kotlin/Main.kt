@@ -1,14 +1,24 @@
 package mw
 
+import mw.oldWidgets.ImageWidget
+import mw.oldWidgets.IndexWidget
+import mw.oldWidgets.LineBreakWidget
+import mw.oldWidgets.LinkWidget
+import mw.oldWidgets.TextWidget
+import mw.oldWidgets.Widget
 import java.io.File
 
 //paths based on repository root
-const val TEXT_DIR = "src/main/resources/pages/"
+const val TEXT_DIR = "src/main/resources/pages_old/"
 const val IMG_DIR = "src/main/resources/images/"
 const val STYLE_DIR = "src/main/resources/style/"
 const val OUTPUT_DIR = "out/"
 
 fun main() {
+    whatDidICook()
+}
+
+fun whatDidICook() {
 
     if (!File(OUTPUT_DIR).exists() && !File(OUTPUT_DIR).mkdir()) throw Exception("Could not create output directory")
 
@@ -81,7 +91,11 @@ data class Page(val name: String) {
 
 fun buildPage(page: Page, includeFooter: Boolean = true): List<String> {
     val result = mutableListOf<String>()
-    result += "<!DOCTYPE html>\n" + "<html lang=\"en\">\n" + "<head>\n" + "<meta content=\"text/html\" charset=\"UTF-8\">\n" + "${page.style?.let { "<link href=\"${page.style}.css\" rel=\"stylesheet\">" }}\n" + "<title>${page.title ?: page.name}</title>\n" + "<link rel=\"icon\" href=\"icon.png\">\n" + "</head>\n" + "<body>\n" + "<main>"
+    result += "<!DOCTYPE html>\n" + "<html lang=\"en\">\n" + "<head>\n" + "<meta content=\"text/html\" charset=\"UTF-8\">\n" + "${
+        page.style?.let {
+            "<link href=\"${page.style}.css\" rel=\"stylesheet\">"
+        }
+    }\n" + "<title>${page.title ?: page.name}</title>\n" + "<link rel=\"icon\" href=\"icon.png\">\n" + "</head>\n" + "<body>\n" + "<main>"
 
     page.content.forEach { result += it.getHTML() }
 

@@ -1,4 +1,4 @@
-package mw
+package mw.oldWidgets
 
 class LineBreakWidget : Widget {
     override fun getHTML(): List<String> {

@@ -18,11 +18,23 @@ class PageParser {
 
     /**
      * custom attribute action will receive:
-     *     - a list of all line containing custom attributes List<String>
+     *     - a list of all lines containing custom attributes List<String>
      *     - the MutableMap of the RawPage containing custom attributes MutableMap<String, String>
      */
     fun registerCustomAttributeAction(customAttributeAction: (List<String>, MutableMap<String, String>) -> Unit) {
         this.customAttributeAction = customAttributeAction
+    }
+
+    private var customTextParseAction: (List<String>) -> List<String> = { l: List<String> -> l }
+
+    /**
+     * custom text parse action will receive:
+     *     - a list of all lines containing text
+     * and must return:
+     *     - a modified list of all lines containing text
+     */
+    fun registerCustomTextParseAction(customTextParseAction: (List<String>) -> List<String>) {
+        this.customTextParseAction = customTextParseAction
     }
 
     fun parsePage(file: File): RawPage {
@@ -30,7 +42,7 @@ class PageParser {
         val rawContent = file.readLines()
         val firstMarker = rawContent.withIndex().firstOrNull { it.value.trim() == "===" }
         if (firstMarker == null) {
-            page.content.addAll(rawContent)
+            page.content.addAll(customTextParseAction(rawContent))
             return page
         }
 
@@ -50,7 +62,7 @@ class PageParser {
         }
 
         val secondMarker = rawContent.withIndex().last { it.value.trim() == "===" }
-        page.content.addAll(rawContent.drop(secondMarker.index + 1))
+        page.content.addAll(customTextParseAction(rawContent.drop(secondMarker.index + 1)))
 
         if (firstMarker.index != secondMarker.index) {
             val customAttributes = rawContent.drop(firstMarker.index + 1).dropLast(rawContent.size - secondMarker.index)

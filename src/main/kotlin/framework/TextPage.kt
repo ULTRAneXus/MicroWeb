@@ -1,41 +1,52 @@
 package mw.framework
 
-var stylesheet: String? = null
-var icon: String? = null
-var pageTitle: String? = null
-var title: TitleWidget? = null
-var content: TextWidget? = null
-var image: ImageWidget? = null
-
 class TextPage {
 
-    //TODO: add support for headers and footers
+    var stylesheet: String? = null
+    var icon: String? = null
+    var pageTitle: String? = null
+    val header: MutableList<Widget> = mutableListOf()
+    var title: TitleWidget? = null
+    var content: TextWidget? = null
+    var image: ImageWidget? = null
+    val footer: MutableList<Widget> = mutableListOf()
 
     constructor(
         stylesheet: String? = null,
         icon: String? = null,
         pageTitle: String? = null,
+        header: List<Widget> = listOf(),
         title: TitleWidget? = null,
         content: TextWidget? = null,
-        image: ImageWidget? = null
+        image: ImageWidget? = null,
+        footer: List<Widget> = listOf()
     ) {
-        mw.framework.stylesheet = stylesheet
-        mw.framework.icon = icon
-        mw.framework.pageTitle = pageTitle
-        mw.framework.title = title
-        mw.framework.content = content
-        mw.framework.image = image
+        this.stylesheet = stylesheet
+        this.icon = icon
+        this.pageTitle = pageTitle
+        this.header.addAll(header)
+        this.title = title
+        this.content = content
+        this.image = image
+        this.footer.addAll(footer)
     }
 
     constructor(
-        stylesheet: String? = null, icon: String? = null, pageTitle: String? = null, rawPage: PageParser.RawPage
+        stylesheet: String? = null,
+        icon: String? = null,
+        pageTitle: String? = null,
+        header: List<Widget> = listOf(),
+        rawPage: PageParser.RawPage,
+        footer: List<Widget> = listOf()
     ) {
-        mw.framework.stylesheet = stylesheet
-        mw.framework.icon = icon
-        mw.framework.pageTitle = pageTitle ?: rawPage.title
+        this.stylesheet = stylesheet
+        this.icon = icon
+        this.pageTitle = pageTitle ?: rawPage.title
+        this.header.addAll(header)
         rawPage.title?.let { title = TitleWidget(it, 1) }
         rawPage.image?.let { image = ImageWidget(it, it) }
         content = TextWidget(rawPage.content)
+        this.footer.addAll(footer)
     }
 
     fun build(): List<String> {
@@ -54,9 +65,11 @@ class TextPage {
         res += "<body>"
         res += "<main>"
 
+        res.addAll(header.flatMap { it.getHTML() })
         title?.let { res.addAll(it.getHTML()) }
         content?.let { res.addAll(it.getHTML()) }
         image?.let { res.addAll(it.getHTML()) }
+        res.addAll(footer.flatMap { it.getHTML() })
 
         res += "</main>"
         res += "</body>"

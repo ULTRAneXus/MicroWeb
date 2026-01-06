@@ -1,0 +1,18 @@
+title: Week 6
+stylesheet: weeks.css
+image:
+===
+week: 6
+language: eng
+delay: -602
+animals: elephant; bald eagle; jumping spider
+images:
+===
+Hello, friend,
+Here is the sixth issue of my weekly friendship newsletter :)
+I hope you had a nice weekend and had a good start into this Monday!
+I have decided to turn the Animal of the Week into the Top 3 Animals of the Week, as I always get so many great submissions from you :D
+This week we have the elephant, the bald eagle, and the jumping spider!
+Feel free to suggest a new animal this week too, I always have a blast reading the suggestions :D
+Furthermore, I hope you are doing well and wish you a nice start into the new week! Enjoy the nice weather and stay healthy!
+See you next Monday at the latest!

@@ -1,0 +1,17 @@
+title: Week 3
+stylesheet: weeks.css
+image:
+===
+week: 3
+language: eng
+delay: -673
+animals: hedgehog
+images:
+===
+Hello, friend, here is the third issue of my weekly friendship newsletter!
+I'm glad to hear that you all still like this project! c:
+I hope you had a nice weekend, mine was okay.
+The Animal of the Week is the hedgehog! They are small, cute, nocturnal, hibernate, are born without their spines, and feed on insects.
+Even if your animal wasn't presented this time, tell me which is your Animal of the Week for this new week anyway! :)
+Furthermore, I hope you are doing well, and wish you a nice start to the day and the week!
+See you next Monday if not earlier! :fox_wave:

@@ -1,0 +1,16 @@
+title: Week 7
+stylesheet: weeks.css
+image:
+===
+week: 7
+language: eng
+delay: -497
+animals: chicken; penguin; cassowary
+images:
+===
+Hello, friend, here is the seventh issue of my weekly friendship newsletter :)
+I hope you had a nice weekend and had a good start to Monday!
+Feel free to tell me about your weekend :)
+The Animals of the Week are the chicken, the penguin and the cassowary!
+Suggest a new animal this week too! :D
+Furthermore, I hope you are doing well and I wish you a nice start into the new week! Enjoy the weather and stay healthy! See you next Monday at the latest! :C3POWave:

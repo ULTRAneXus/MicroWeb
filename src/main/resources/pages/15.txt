@@ -1,0 +1,24 @@
+title: Week 15
+stylesheet: weeks.css
+image: Side-Blotched Lizard.webp
+===
+week: 15
+language: eng
+delay: -285
+animals: kingfisher; raccoon; side-blotched lizard
+images:
+===
+Hello, friend, here is the fifteenth issue of my weekly friendship newsletter, today again as an evening edition ^^'7
+I hope you had a nice weekend and had a good start to Monday!
+Tell me about your week sometime!
+The Animals of the Week are the kingfisher, Pedró the raccoon, and in 1st place the side-blotched lizard!
+The common side-blotched lizard belongs to the iguanas and lives in sandy-rocky dry areas and on rocky coasts in North America. It grows up to 17 cm long and feeds on insects, spiders and scorpions. The small lizards are active at dusk and spend the midday heat mostly under stones or in the sand, in winter they hibernate. Like many lizards, side-blotched lizards can also throw off their tails to escape predators (for example, if a bird has grabbed them from behind). However, they usually lose social status among their peers as a result. But the real reason why the side-blotched lizard is so interesting to me is the following: it's a rock-paper-scissors lizard!
+The males of this species come in 3 different versions, with different throat colors:
+- Orange males are large and aggressive and usually have many females.
+- Yellow males are small and hide from the others of their kind; they have no females.
+- Blue males usually have only one female, but they defend her rigorously against others.
+This creates a dynamic that is not normally found in the animal world: the orange males are often superior to the blue males and take their females away from them. The blue males can however dominate the yellow males and take over their habitat. And the yellow males take advantage of the size of the territories of the orange males and mate secretly with their females.
+Orange beats blue beats yellow beats orange, rock-paper-scissors principle!
+The females do something similar, but with their eggs instead of their territory, you can read about it here: https://en.wikipedia.org/wiki/Side-blotched_lizard
+Please feel free to suggest a new animal this week too!
+Furthermore, I hope you are doing well and wish you a nice week! Stay cool and see you next Monday!

@@ -54,9 +54,9 @@ class PageParser {
             val parsedTag = tag.split(":", limit = 2)
 
             when (parsedTag.first().trim()) {
-                "stylesheet" -> page.stylesheet = parsedTag.last().trim()
-                "title" -> page.title = parsedTag.last().trim()
-                "image" -> page.image = parsedTag.last().trim()
+                "stylesheet" -> page.stylesheet = if (parsedTag.last().trim() != "") parsedTag.last().trim() else null
+                "title" -> page.title = if (parsedTag.last().trim() != "") parsedTag.last().trim() else null
+                "image" -> page.image = if (parsedTag.last().trim() != "") parsedTag.last().trim() else null
                 else -> println("unrecognized tag: ${parsedTag.first().trim()} in ${file.path}")
             }
         }

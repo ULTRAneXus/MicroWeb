@@ -1,11 +1,8 @@
 package mw
 
-import mw.oldWidgets.ImageWidget
-import mw.oldWidgets.IndexWidget
-import mw.oldWidgets.LineBreakWidget
-import mw.oldWidgets.LinkWidget
-import mw.oldWidgets.TextWidget
-import mw.oldWidgets.Widget
+import mw.framework.PageParser
+import mw.framework.TextPage
+import mw.oldWidgets.*
 import java.io.File
 
 //paths based on repository root
@@ -15,8 +12,37 @@ const val STYLE_DIR = "src/main/resources/style/"
 const val OUTPUT_DIR = "out/"
 
 fun main() {
-    whatDidICook()
+//    whatDidICook()
+    val parser = PageParser()
+    parser.registerCustomAttributeAction(customAttributeAction)
+    val rawPage = parser.parsePage(File("src/main/resources/pages/16.txt"))
+    println(rawPage)
+    val page = TextPage("weeks.css", "icon.webp", "Week 16", rawPage)
+
+    if (!File(OUTPUT_DIR).exists() && !File(OUTPUT_DIR).mkdir()) throw Exception("Could not create output directory")
+
+    val out = File(OUTPUT_DIR + "Week 16.html")
+    out.writeText(page.build().joinToString("\n"))
 }
+
+val customAttributeAction: (List<String>, MutableMap<String, String>) -> Unit =
+    { l: List<String>, m: MutableMap<String, String> ->
+        l.forEach { tag ->
+            if (!tag.contains(":")) {
+                if (tag.trim() != "") println("unrecognized tag: ${tag.trim()}")
+                return@forEach
+            }
+            val parsedTag = tag.split(":", limit = 2)
+            when (parsedTag.first().trim()) {
+                "week" -> m["week"] = parsedTag.last().trim()
+                "language" -> m["language"] = parsedTag.last().trim()
+                "delay" -> m["delay"] = parsedTag.last().trim()
+                "animals" -> m["animals"] = parsedTag.last().trim()
+                "images" -> m["images"] = parsedTag.last().trim()
+                else -> println("unrecognized tag: ${parsedTag.first().trim()}")
+            }
+        }
+    }
 
 fun whatDidICook() {
 

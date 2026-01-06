@@ -1,7 +1,4 @@
-package framework
-
-import mw.framework.Widget
-
+package mw.framework
 
 class ContentPage {
 

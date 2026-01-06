@@ -1,7 +1,4 @@
-package framework
-
-import mw.framework.LinkWidget
-import mw.framework.Widget
+package mw.framework
 
 class IndexWidget(val index: List<LinkWidget> = listOf()) : Widget {
     override fun getHTML(): List<String> {

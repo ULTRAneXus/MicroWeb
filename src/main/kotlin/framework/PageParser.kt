@@ -42,8 +42,9 @@ class PageParser {
             val parsedTag = tag.split(":", limit = 2)
 
             when (parsedTag.first().trim()) {
-                "title" -> page.title = parsedTag.last().trim()
                 "stylesheet" -> page.stylesheet = parsedTag.last().trim()
+                "title" -> page.title = parsedTag.last().trim()
+                "image" -> page.image = parsedTag.last().trim()
                 else -> println("unrecognized tag: ${parsedTag.first().trim()} in ${file.path}")
             }
         }
@@ -60,8 +61,9 @@ class PageParser {
     }
 
     data class RawPage(
-        var title: String = "",
-        var stylesheet: String = "",
+        var stylesheet: String? = null,
+        var title: String? = null,
+        var image: String? = null,
         val content: MutableList<String> = mutableListOf(),
         val customAttributes: MutableMap<String, String> = mutableMapOf()
     )

@@ -33,7 +33,8 @@ class TextPage {
         mw.framework.stylesheet = stylesheet
         mw.framework.icon = icon
         mw.framework.pageTitle = pageTitle ?: rawPage.title
-        title = TitleWidget(rawPage.title, 1)
+        rawPage.title?.let { title = TitleWidget(it, 1) }
+        rawPage.image?.let { image = ImageWidget(it, it) }
         content = TextWidget(rawPage.content)
     }
 

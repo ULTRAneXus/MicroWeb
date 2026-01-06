@@ -1,11 +1,12 @@
 title: Week 16 - Fly, Edward the Sea Lion, Blue Jay
 stylesheet: weeks.css
+image: Blue Jay.webp
 ===
 week: 16
 language: eng
 delay: -543
 animals: fly; sea lion; blue jay
-images: Blue Jay.webp
+images:
 ===
 Hello, friend, here is the sixteenth issue of my weekly friendship newsletter, today at least somewhat on time :P
 I hope you had a nice weekend and had a good start to this Monday!
